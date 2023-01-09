@@ -43,37 +43,37 @@ export default defineComponent({
       skills:[
         {
           title: 'Python',
-          content: 'Many years experience. Several Projects. Most comfortable',
+          content: '7+ years experience; Extensive Machine Learning, API (django), and ETL project experience',
           value: 80,
           color: 'green-10'
         },
         {
           title: 'Javascript',
-          content: 'Many years experience. Several Projects. Most comfortable',
-          value: 70,
-          color: 'green-9'
+          content: '5+ years experience; VueJS, NodeJS, Lambda etc. Very comfortable with advanced web-app javascript development',
+          value: 75,
+          color: 'green-10'
         },
         {
           title: 'SQL',
-          content: 'Many years experience. Several Projects. Most comfortable',
+          content: '5+ years experience; Designed and managed deployed databases with hundreds of active users. Sophisticated ETL processes',
           value: 75,
           color: 'green-10'
         },
         {
           title: 'DevOps',
-          content: 'Many years experience. Several Projects. Most comfortable',
+          content: '3+ years experience; AWS Amplify, Lambda, SageMaker, Kubernetes, Elastic Beanstalk, Docker, and more...',
           value: 60,
           color: 'amber-10'
         },
         {
           title: 'GraphQL',
-          content: 'Many years experience. Several Projects. Most comfortable',
+          content: '2+ years experience; AppSync GraphQL development for serverless infrastructure.',
           value: 55,
           color: 'amber-10'
         },
         {
           title: 'PyTorch, Tensorflow',
-          content: 'Many years experience. Several Projects. Most comfortable',
+          content: '3+ years experience designing neural networks for timeseries forecasting, machine vision, reinforcement learning, nlp and more.',
           value: 60,
           color: 'amber-10'
         },
