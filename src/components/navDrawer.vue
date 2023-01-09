@@ -24,17 +24,19 @@ export default defineComponent({
         {
           title: 'WageUp',
           caption: 'Gamification & Performance Management Tech Suite',
+          link: 'www.wageup.com',
           img: 'https://wageup-devin.s3.us-east-1.amazonaws.com/wageupLogoSmall425x425.png'
         },
         {
           title: 'DebaterHub',
           caption: 'Machine Learning on Debate Data for Persuasive AI',
+          link: 'www.debaterhub.com',
           img: 'https://wageup-devin.s3.us-east-1.amazonaws.com/debaterHubLogoSymbol.png'
         },
         {
           title: 'Ted Talk',
           caption: 'Morality and Artificial Intelligence: The Science and Beyond',
-          link: '',
+          link: 'https://www.ted.com/talks/devin_gonier_morality_and_artificial_intelligence_the_science_and_beyond',
           img: 'https://cdn0.iconfinder.com/data/icons/social-media-2092/100/social-61-512.png'
         },
         {
