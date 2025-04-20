@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devin Gonier - Principal Engineer & AI Researcher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #222A33;
+            --accent: #10b981;
+            --accent-light: #34d399;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #f9fafb;
+            --background: #f3f4f6;
+            --card-bg: #fff;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --section-gap: 80px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-weight: 400;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Particle background */
+        .particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        canvas#particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+        
+        /* Header styles */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(120deg, var(--primary), var(--primary-dark));
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            padding: 120px 0 180px;
+        }
+        
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .name {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+            color: var(--text-light);
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transform-origin: center;
+            letter-spacing: -0.025em;
+        }
+        
+        .title {
+            font-size: 1.8rem;
+            color: var(--accent-light);
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            margin: 30px 0 0;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+        
+        .contact-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .contact-item i {
+            color: var(--accent-light);
+            font-size: 1.1rem;
+        }
+        
+        .contact-item a, .contact-item span {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 400;
+            transition: var(--transition);
+        }
+        
+        .contact-item a:hover {
+            color: var(--accent-light);
+        }
+        
+        /* Main content styles */
+        main {
+            position: relative;
+            z-index: 1;
+            padding-bottom: 60px;
+        }
+        
+        .section {
+            padding: var(--section-gap) 0;
+            position: relative;
+            opacity: 0;
+        }
+        
+        .section-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--primary);
+            font-weight: 700;
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .section-divider {
+            height: 100px;
+            width: 100%;
+            position: relative;
+            margin-top: -50px;
+            margin-bottom: -50px;
+            z-index: 1;
+        }
+        
+        .section-divider svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            fill: var(--background);
+        }
+        
+        .divider-alt {
+            background-color: #f8fafc;
+        }
+        
+        .divider-alt .section-divider svg {
+            fill: #f8fafc;
+        }
+        
+        /* Card styles */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 32px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .card:hover::before {
+            background: linear-gradient(to bottom, var(--accent), var(--primary));
+        }
+        
+        .experience-item {
+            margin-bottom: 30px;
+        }
+        
+        .experience-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .job-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .company {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .location-date {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .tasks {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .tasks li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .tasks li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+        }
+        
+        /* Skills section */
+        .pill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        
+        .pill {
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            display: inline-block;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateX(20px);
+            font-weight: 500;
+        }
+        
+        .pill.filled {
+            background-color: var(--primary);
+            color: var(--text-light);
+        }
+        
+        .pill.filled:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+        
+        .pill.outlined {
+            border: 1px solid var(--text-secondary);
+            color: var(--text-primary);
+        }
+        
+        .pill.outlined:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(107, 114, 128, 0.1);
+        }
+        
+        /* Publications and patents */
+        .publication, .patent {
+            margin-bottom: 20px;
+            padding-left: 18px;
+            position: relative;
+        }
+        
+        .publication:last-child, .patent:last-child {
+            margin-bottom: 0;
+        }
+        
+        .publication::before, .patent::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+        
+        /* Media items */
+        .media-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 14px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .media-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .media-item:hover {
+            background-color: rgba(236, 236, 241, 0.5);
+        }
+        
+        .media-item i {
+            margin-right: 16px;
+            color: var(--primary);
+            font-size: 1.5rem;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(37, 99, 235, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .media-item:hover i {
+            background-color: var(--primary);
+            color: var(--text-light);
+            transform: rotate(-10deg) scale(1.1);
+        }
+        
+        .media-item a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .media-item a:hover {
+            color: var(--accent);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: var(--text-light);
+            text-align: center;
+            padding: 50px 0;
+            position: relative;
+            clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 100%);
+            margin-top: 60px;
+            padding-top: 100px;
+        }
+        
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            .name {
+                font-size: 3rem;
+            }
+            
+            .title {
+                font-size: 1.4rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 24px;
+            }
+            
+            .job-title {
+                font-size: 1.2rem;
+            }
+            
+            .company {
+                font-size: 1.1rem;
+            }
+            
+            .location-date {
+                flex-direction: column;
+                gap: 4px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-divider {
+                height: 60px;
+                margin-top: -30px;
+                margin-bottom: -30px;
+            }
+            
+            header {
+                padding: 100px 0 150px;
+            }
+            
+            footer {
+                padding-top: 80px;
+                clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .name {
+                font-size: 2.5rem;
+            }
+            
+            .title {
+                font-size: 1.2rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            
+            .contact-item {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background using Canvas -->
+    <div class="particle-container">
+        <canvas id="particleCanvas"></canvas>
+    </div>
+    
+    <header>
+        <div class="container">
+            <div class="profile">
+                <h1 class="name">Devin Gonier</h1>
+                <h2 class="title">Principal Engineer & AI Researcher</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:dgonier@gmail.com">dgonier@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>817-925-4989</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Denver, CO</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <a href="https://www.linkedin.com/in/devin-gonier-35942b56/" target="_blank">LinkedIn</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <a href="https://github.com/dgonier" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section id="summary" class="section">
+            <div class="container section-content">
+                <h2 class="section-title">Summary</h2>
+                <div class="card summary-card">
+                    <p>Seasoned Principal AI Research Engineer and Subject Matter Expert in LLMs overseeing IRAD LLM development. Over 8 years of groundbreaking AI leadership, co‑founder of WageUp and DebaterHub. Specialized in NLP, retrieval‑augmented generation, multi‑agent frameworks, and scalable AWS architectures. NSF SBIR awardee with support from OpenAI and AWS grants. Patented innovator in AI‑driven education and performance management.</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="section-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path d="M0,0 C240,100 480,100 720,50 C960,0 1200,0 1440,100 L1440,100 L0,100 Z"></path>
+            </svg>
+        </div>
+        
+        <section id="research" class="section divider-alt">
+            <div class="container section-content">
+                <h2 class="section-title">Research Interests</h2>
+                <div class="card research-card">
+                    <ul class="tasks">
+                        <li>Multi-Agent Systems for Reasoning and Debate</li>
+                        <li>Advanced Retrieval-Augmented Generation (RAG) Techniques</li>
+                        <li>Knowledge Representation and Graph-Based Learning</li>
+                        <li>Reinforcement Learning for LLM Alignment and Control</li>
+                        <li>Architectures for Specialized and Collaborative AI Models</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <div class="section-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path d="M0,100 C240,0 480,0 720,50 C960,100 1200,100 1440,0 L1440,0 L0,0 Z"></path>
+            </svg>
+        </div>
+        
+        <section id="experience" class="section">
+            <div class="container section-content">
+                <h2 class="section-title">Experience</h2>
+                
+                <div class="card experience-card">
+                    <div class="experience-item">
+                        <h3 class="job-title">Principal Engineer R&D for LLMs (SME)</h3>
+                        <div class="company">Arka - Advanced AI / Space Comms Solutions for DoD</div>
+                        <div class="location-date">
+                            <span>Denver</span>
+                            <span>Jul 2024 - Present</span>
+                        </div>
+                        <ul class="tasks">
+                            <li>Led Internal R&D for AI Agents & LLMs at Arka</li>
+                            <li>ML Ops for Internal GPU Cluster Deployment</li>
+                            <li>Code Assistant and Proposal Generation Apps</li>
+                            <li>Advanced LLM integrated DoD applications</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card experience-card">
+                    <div class="experience-item">
+                        <h3 class="job-title">Co‑Founder & AI Researcher</h3>
+                        <div class="company">DebaterHub</div>
+                        <div class="location-date">
+                            <span>Denver</span>
+                            <span>2020 - Present</span>
+                        </div>
+                        <ul class="tasks">
+                            <li>Built Core AI-Enabled LMS Architectures</li>
+                            <li>Designed Internal Compute Cluster for LLM Agents</li>
+                            <li>Prototyped / Research AI Debate Agents</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card experience-card">
+                    <div class="experience-item">
+                        <h3 class="job-title">Co‑Founder & CTO</h3>
+                        <div class="company">WageUp</div>
+                        <div class="location-date">
+                            <span>Denver</span>
+                            <span>2016 - Present</span>
+                        </div>
+                        <ul class="tasks">
+                            <li>Led Dev of 4 Patents on AI Applications</li>
+                            <li>Built AI No-Code Solution for Business Training</li>
+                            <li>Managed and Deployed Enterprise-Scale (AAA) Applications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="section-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path d="M0,0 C240,100 480,100 720,50 C960,0 1200,0 1440,100 L1440,100 L0,100 Z"></path>
+            </svg>
+        </div>
+        
+        <section id="education" class="section divider-alt">
+            <div class="container section-content">
+                <h2 class="section-title">Education</h2>
+                <div class="card education-card">
+                    <div class="experience-item">
+                        <h3 class="job-title">M.S. in Machine Learning</h3>
+                        <div class="company">Columbia University</div>
+                        <div class="location-date">
+                            <span>New York, NY</span>
+                            <span>Jun 2023</span>
+                        </div>
+                        <ul class="tasks">
+                            <li>Relevant Coursework: Natural Language Processing, Reinforcement Learning, Advanced AI Systems</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="section-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path d="M0,100 C240,0 480,0 720,50 C960,100 1200,100 1440,0 L1440,0 L0,0 Z"></path>
+            </svg>
+        </div>
+        
+        <section id="publications" class="section">
+            <div class="container section-content">
+                <h2 class="section-title">Publications</h2>
+                <div class="card publications-card">
+                    <div class="publication">
+                        <p><strong>Cross Fertilizing Empathy from Brain to Machine as a Value Alignment Strategy</strong>. ArXiv preprint 2312.07579.</p>
+                    </div>
+                    <div class="publication">
+                        <p><strong>Augmented Debate‑Centered Instruction: A Novel Research Agenda for Responsible AI Integration in Education</strong>. AAAI 2024.</p>
+                    </div>
+                    <div class="publication">
+                        <p><strong>Developing and Measuring AI Pluralism: Strategies, Milestones, and Innovative Approaches</strong>. NCA Panel, Nov 2024.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="section-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path d="M0,0 C240,100 480,100 720,50 C960,0 1200,0 1440,100 L1440,100 L0,100 Z"></path>
+            </svg>
+        </div>
+        
+        <section id="patents" class="section divider-alt">
+            <div class="container section-content">
+                <h2 class="section-title">Patents</h2>
+                <div class="card patents-card">
+                    <div class="patent">
+                        <p><em>Artificial Intelligence Coach for Providing Customer Service Feedback to Employees</em> (18/440,051)</p>
+                    </div>
+                    <div class="patent">
+                        <p><em>Performance Evaluation Systems and Methods</em> (17/577,109; 16/716,109; 18/482,181)</p>
+                    </div>
+                    <div class="patent">
+                        <p><em>Machine‑Learning Architecture for an Artificial Intelligence Bot</em> (63/555,980)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="section-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path d="M0,100 C240,0 480,0 720,50 C960,100 1200,100 1440,0 L1440,0 L0,0 Z"></path>
+            </svg>
+        </div>
+        
+        <section id="skills" class="section">
+            <div class="container section-content">
+                <h2 class="section-title">Skills</h2>
+                <div class="card skills-card">
+                    <h3>Technical Skills</h3>
+                    <div class="pill-container">
+                        <span class="pill outlined">Javascript</span>
+                        <span class="pill outlined">Python</span>
+                        <span class="pill outlined">GraphQL</span>
+                        <span class="pill outlined">bash</span>
+                        <span class="pill outlined">SQL/DynamoDB/GraphQL</span>
+                        
+                        <span class="pill filled">Machine Learning</span>
+                        <span class="pill filled">Artificial Intelligence</span>
+                        <span class="pill filled">GenAI</span>
+                        <span class="pill filled">RAG</span>
+                        <span class="pill filled">NLP</span>
+                        <span class="pill filled">Neural Networks</span>
+                        <span class="pill filled">Agent AI</span>
+                        <span class="pill filled">AWS Amplify</span>
+                        <span class="pill filled">VueJS</span>
+                        <span class="pill filled">Serverless</span>
+                        <span class="pill filled">Kubernetes</span>
+                        <span class="pill filled">Docker</span>
+                        <span class="pill filled">AWS DevOps</span>
+                        <span class="pill filled">TensorFlow/PyTorch</span>
+                        <span class="pill filled">MySQL/DynamoDB</span>
+                        <span class="pill filled">FastApi/Django/Flask</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="section-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path d="M0,0 C240,100 480,100 720,50 C960,0 1200,0 1440,100 L1440,100 L0,100 Z"></path>
+            </svg>
+        </div>
+        
+        <section id="media" class="section divider-alt">
+            <div class="container section-content">
+                <h2 class="section-title">Media & Links</h2>
+                <div class="card media-card">
+                    <div class="media-item">
+                        <i class="fas fa-video"></i>
+                        <span>TedX Talk: How to Teach Artificial Intelligence Morality and Ethics</span>
+                    </div>
+                    <div class="media-item">
+                        <i class="fas fa-podcast"></i>
+                        <a href="https://www.youtube.com/watch?v=LLILpV_bKs4" target="_blank">
+                            Podcast: AI Pluralism, Consciousness and Emergent Properties
+                        </a>
+                    </div>
+                    <div class="media-item">
+                        <i class="fas fa-podcast"></i>
+                        <span>Podcast: "Unbox Your World: AI Safety — Teaching Machine Ethics Through Debate"</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Devin Gonier. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Canvas Particle System (based on ParticleBackground.vue)
+        class ParticleSystem {
+            constructor() {
+                this.canvas = document.getElementById('particleCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.mouse = {
+                    x: null,
+                    y: null,
+                    radius: 150
+                };
+                this.animationFrame = null;
+                
+                this.initCanvas();
+                this.initParticles();
+                this.addEventListeners();
+                this.animate();
+            }
+            
+            initCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+            
+            initParticles() {
+                this.particles = [];
+                
+                // Create particles based on screen size
+                const particleCount = Math.min(
+                    Math.floor((this.canvas.width * this.canvas.height) / 9000),
+                    150
+                );
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const size = Math.random() * 5 + 1;
+                    const x = Math.random() * (this.canvas.width - size * 2) + size;
+                    const y = Math.random() * (this.canvas.height - size * 2) + size;
+                    const directionX = Math.random() * 2 - 1;
+                    const directionY = Math.random() * 2 - 1;
+                    const color = this.getRandomColor();
+                    
+                    this.particles.push({
+                        x,
+                        y,
+                        directionX,
+                        directionY,
+                        size,
+                        color
+                    });
+                }
+            }
+            
+            getRandomColor() {
+                const colors = [
+                    "rgba(37, 99, 235, 0.5)", // primary blue
+                    "rgba(124, 58, 237, 0.5)", // purple
+                    "rgba(16, 185, 129, 0.5)", // green
+                    "rgba(37, 99, 235, 0.2)", // light blue
+                    "rgba(124, 58, 237, 0.2)" // light purple
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            animate() {
+                this.animationFrame = requestAnimationFrame(this.animate.bind(this));
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                for (let i = 0; i < this.particles.length; i++) {
+                    let p = this.particles[i];
+                    
+                    // Draw particle
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = p.color;
+                    this.ctx.fill();
+                    
+                    // Update position
+                    p.x += p.directionX * 0.2;
+                    p.y += p.directionY * 0.2;
+                    
+                    // Boundary checking
+                    if (p.x < 0 || p.x > this.canvas.width) {
+                        p.directionX = -p.directionX;
+                    }
+                    if (p.y < 0 || p.y > this.canvas.height) {
+                        p.directionY = -p.directionY;
+                    }
+                    
+                    // Mouse interaction
+                    if (this.mouse.x !== null && this.mouse.y !== null) {
+                        const dx = p.x - this.mouse.x;
+                        const dy = p.y - this.mouse.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < this.mouse.radius) {
+                            const angle = Math.atan2(dy, dx);
+                            const force = (this.mouse.radius - distance) / this.mouse.radius;
+                            
+                            p.x += Math.cos(angle) * force * 2;
+                            p.y += Math.sin(angle) * force * 2;
+                        }
+                    }
+                    
+                    // Connect particles
+                    this.connectParticles(p, i);
+                }
+            }
+            
+            connectParticles(p, index) {
+                for (let j = index + 1; j < this.particles.length; j++) {
+                    const p2 = this.particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 120) {
+                        this.ctx.beginPath();
+                        this.ctx.strokeStyle = `rgba(37, 99, 235, ${0.2 - (distance / 120) * 0.2})`;
+                        this.ctx.lineWidth = 0.5;
+                        this.ctx.moveTo(p.x, p.y);
+                        this.ctx.lineTo(p2.x, p2.y);
+                        this.ctx.stroke();
+                    }
+                }
+            }
+            
+            addEventListeners() {
+                window.addEventListener('resize', this.handleResize.bind(this));
+                window.addEventListener('mousemove', this.handleMouseMove.bind(this));
+                window.addEventListener('touchmove', this.handleTouchMove.bind(this));
+                window.addEventListener('touchend', this.handleTouchEnd.bind(this));
+            }
+            
+            handleResize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.initParticles();
+            }
+            
+            handleMouseMove(e) {
+                this.mouse.x = e.clientX;
+                this.mouse.y = e.clientY;
+            }
+            
+            handleTouchMove(e) {
+                if (e.touches.length > 0) {
+                    this.mouse.x = e.touches[0].clientX;
+                    this.mouse.y = e.touches[0].clientY;
+                }
+            }
+            
+            handleTouchEnd() {
+                this.mouse.x = null;
+                this.mouse.y = null;
+            }
+        }
+        
+        // Enhanced scroll animations with IntersectionObserver
+        function setupScrollAnimations() {
+            // Animate sections on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const section = entry.target;
+                        section.style.opacity = 1;
+                        
+                        // Animate section title
+                        const title = section.querySelector('.section-title');
+                        if (title) {
+                            anime({
+                                targets: title,
+                                opacity: [0, 1],
+                                translateY: [30, 0],
+                                easing: 'easeOutQuad',
+                                duration: 800
+                            });
+                        }
+                        
+                        // Animate cards with staggered delay
+                        const cards = section.querySelectorAll('.card');
+                        anime({
+                            targets: cards,
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            scale: [0.98, 1],
+                            easing: 'easeOutQuint',
+                            duration: 800,
+                            delay: anime.stagger(150)
+                        });
+                        
+                        observer.unobserve(section);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.section').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Pills animation observer
+            const pillsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const pills = entry.target.querySelectorAll('.pill');
+                        anime({
+                            targets: pills,
+                            opacity: [0, 1],
+                            translateX: [20, 0],
+                            easing: 'easeOutQuad',
+                            duration: 600,
+                            delay: anime.stagger(30)
+                        });
+                        pillsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.pill-container').forEach(container => {
+                pillsObserver.observe(container);
+            });
+        }
+        
+        // Header animation
+        function animateHeader() {
+            anime({
+                targets: '.name',
+                opacity: [0, 1],
+                translateY: [-50, 0],
+                scale: [0.9, 1],
+                easing: 'easeOutExpo',
+                duration: 1800
+            });
+            
+            anime({
+                targets: '.title',
+                opacity: [0, 1],
+                translateY: [-30, 0],
+                easing: 'easeOutExpo',
+                duration: 1500,
+                delay: 300
+            });
+            
+            anime({
+                targets: '.contact-item',
+                opacity: [0, 1],
+                translateY: [20, 0],
+                delay: anime.stagger(100, {start: 600}),
+                easing: 'easeOutQuad',
+                duration: 800
+            });
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize particle system
+            new ParticleSystem();
+            
+            // Setup animations
+            animateHeader();
+            setupScrollAnimations();
+        });
+    </script>
+</body>
+</html> 
