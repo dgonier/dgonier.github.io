@@ -11,20 +11,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #222A33;
-            --accent: #10b981;
-            --accent-light: #34d399;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --text-light: #f9fafb;
-            --background: #f3f4f6;
-            --card-bg: #fff;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --primary: #8B5CF6;
+            --primary-dark: #7C3AED;
+            --secondary: #1E293B;
+            --accent: #e2e6e4;
+            --accent-light: #34D399;
+            --text-primary: #F9FAFB;
+            --text-secondary: #CBD5E1;
+            --text-light: #F9FAFB;
+            --background: #0F172A;
+            --card-bg: #1E293B;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --section-gap: 80px;
+            --neuron-color-1: #8B5CF6;
+            --neuron-color-2: #10B981;
+            --neuron-color-3: #3B82F6;
+            --synapse-color: rgba(139, 92, 246, 0.2);
         }
         
         * {
@@ -78,7 +82,7 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(120deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, #0F172A, #1E293B);
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
             padding: 120px 0 180px;
         }
@@ -126,19 +130,21 @@
             align-items: center;
             gap: 10px;
             padding: 8px 16px;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(8px);
             border-radius: 50px;
             transition: var(--transition);
+            border: 1px solid rgba(139, 92, 246, 0.2);
         }
         
         .contact-item:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(30, 41, 59, 0.9);
             transform: translateY(-3px);
+            border-color: rgba(139, 92, 246, 0.5);
         }
         
         .contact-item i {
-            color: var(--accent-light);
+            color: var(--primary);
             font-size: 1.1rem;
         }
         
@@ -168,7 +174,7 @@
         
         .section-content {
             position: relative;
-            z-index: 2;
+            z-index: 5;
         }
         
         .section-title {
@@ -194,27 +200,30 @@
         }
         
         .section-divider {
-            height: 100px;
-            width: 100%;
+            height: 80px;
             position: relative;
-            margin-top: -50px;
-            margin-bottom: -50px;
+            margin-top: -1px;
+            margin-bottom: -1px;
             z-index: 1;
         }
         
-        .section-divider svg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            fill: var(--background);
+        .divider-wave-down {
+            background-color: var(--background);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 50%);
+        }
+        
+        .divider-wave-up {
+            background-color: var(--background);
+            clip-path: polygon(0 0, 100% 50%, 100% 0, 0 0);
+        }
+        
+        .divider-alt .divider-wave-down,
+        .divider-alt .divider-wave-up {
+            background-color: var(--secondary);
         }
         
         .divider-alt {
-            background-color: #f8fafc;
-        }
-        
-        .divider-alt .section-divider svg {
-            fill: #f8fafc;
+            background-color: var(--secondary);
         }
         
         /* Card styles */
@@ -229,6 +238,7 @@
             overflow: hidden;
             transform: translateY(30px);
             opacity: 0;
+            z-index: 2;
         }
         
         .card::before {
@@ -325,26 +335,26 @@
         }
         
         .pill.filled {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: var(--text-light);
         }
         
         .pill.filled:hover {
-            background-color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
         }
         
         .pill.outlined {
             border: 1px solid var(--text-secondary);
-            color: var(--text-primary);
+            color: var(--text-light);
         }
         
         .pill.outlined:hover {
             border-color: var(--primary);
             color: var(--primary);
             transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(107, 114, 128, 0.1);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
         }
         
         /* Publications and patents */
@@ -501,6 +511,193 @@
                 justify-content: center;
             }
         }
+        
+        /* Add new styles for the skill categories */
+        .skill-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .skill-category {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+        }
+        
+        .skill-category h4 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        
+        /* Style for interactive skill visualization */
+        .skill-visualization {
+            margin-top: 40px;
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        /* Path drawing animations */
+        .sign-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            stroke: var(--primary);
+        }
+        
+        /* Make certain elements draggable */
+        .drag-pill {
+            cursor: grab;
+        }
+        
+        .drag-pill:active {
+            cursor: grabbing;
+        }
+        
+        /* Neural network canvas container */
+        .neural-network {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        /* Add SVG neural network styles */
+        .neural-svg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        
+        .neural-svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .neuron {
+            fill: var(--primary);
+            stroke: none;
+            filter: drop-shadow(0 0 8px var(--primary));
+        }
+        
+        .synapse {
+            stroke: var(--synapse-color);
+            stroke-width: 1;
+            fill: none;
+        }
+        
+        .section-brain {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        
+        .section-brain svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .ai-icon {
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .brain-path {
+            fill: none;
+            stroke: var(--primary);
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            stroke-width: 2;
+        }
+        
+        .motionPath {
+            stroke: rgba(139, 92, 246, 0.1);
+            stroke-width: 1;
+            fill: none;
+        }
+        
+        .signal-dot {
+            fill: var(--primary);
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+        
+        .section-connector {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            z-index: 0;
+            opacity: 0.2;
+        }
+        
+        /* Motion elements */
+        .follow-path {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+            z-index: 0;
+        }
+        
+        /* Section specific adjustments */
+        #research .section-brain, 
+        #experience .section-brain,
+        #summary .section-brain {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        #research .section-brain {
+            left: -50px;
+        }
+        
+        #summary .section-brain,
+        #experience .section-brain {
+            right: -50px;
+        }
+        
+        /* Ensure section dividers have proper coloring */
+        .divider-alt {
+            background-color: var(--secondary);
+        }
+        
+        .divider-wave-down {
+            background-color: var(--background);
+        }
+        
+        .divider-wave-up {
+            background-color: var(--background);
+        }
+        
+        .divider-alt .divider-wave-down,
+        .divider-alt .divider-wave-up {
+            background-color: var(--secondary);
+        }
+        
+        /* Ensure proper positioning of connector elements */
+        .section-connector {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            z-index: 0;
+            opacity: 0.2;
+        }
     </style>
 </head>
 <body>
@@ -510,10 +707,29 @@
     </div>
     
     <header>
+        <!-- Neural network SVG -->
+        <div class="neural-svg-container">
+            <svg class="neural-svg" id="neuralNetworkSvg" preserveAspectRatio="none">
+                <!-- Synapses group -->
+                <g id="synapses"></g>
+                <!-- Neurons group -->
+                <g id="neurons"></g>
+                <!-- Signals group -->
+                <g id="signals"></g>
+            </svg>
+        </div>
+        
         <div class="container">
             <div class="profile">
                 <h1 class="name">Devin Gonier</h1>
                 <h2 class="title">Principal Engineer & AI Researcher</h2>
+                
+                <!-- Add signature SVG that will animate with drawing effect -->
+                <svg id="signature" width="240" height="60" viewBox="0 0 240 60" style="margin: 10px 0 25px; opacity: 0">
+                    <path class="sign-path" fill="none" stroke="#34d399" stroke-width="2" 
+                          d="M20,40 C30,30 40,50 50,40 C60,30 70,20 80,40 C90,60 100,10 110,30 C120,50 130,20 140,30 C150,40 160,50 170,30 C180,10 190,50 200,30 C210,10 220,40 230,30" />
+                </svg>
+                
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
@@ -542,6 +758,11 @@
     
     <main>
         <section id="summary" class="section">
+            <div class="section-brain" style="top: 20px; right: 20px;">
+                <svg viewBox="0 0 100 100" class="brain-svg">
+                    <path class="brain-path" d="M30,50 C30,30 40,20 50,20 C60,20 70,30 70,50 C70,70 60,80 50,80 C40,80 30,70 30,50 Z M30,50 C20,50 15,40 20,30 M70,50 C80,50 85,40 80,30 M30,50 C20,50 15,60 20,70 M70,50 C80,50 85,60 80,70 M50,20 C50,10 30,10 20,30 M50,20 C50,10 70,10 80,30 M50,80 C50,90 30,90 20,70 M50,80 C50,90 70,90 80,70 M35,40 C40,35 45,35 50,40 C55,35 60,35 65,40 M35,60 C40,65 45,65 50,60 C55,65 60,65 65,60"></path>
+                </svg>
+            </div>
             <div class="container section-content">
                 <h2 class="section-title">Summary</h2>
                 <div class="card summary-card">
@@ -551,12 +772,21 @@
         </section>
         
         <div class="section-divider">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
-                <path d="M0,0 C240,100 480,100 720,50 C960,0 1200,0 1440,100 L1440,100 L0,100 Z"></path>
-            </svg>
+            <div class="divider-wave-down"></div>
+            <div class="section-connector">
+                <svg width="100%" height="100%" preserveAspectRatio="none">
+                    <path class="motionPath" id="connector1" d="M0,0 C250,100 750,0 1000,100" />
+                    <circle class="signal-dot" r="4" id="signal1"></circle>
+                </svg>
+            </div>
         </div>
         
         <section id="research" class="section divider-alt">
+            <div class="section-brain" style="top: 20px; left: 20px;">
+                <svg viewBox="0 0 100 100" class="brain-svg">
+                    <path class="brain-path" d="M20,50 C20,20 40,10 50,10 C60,10 80,20 80,50 C80,80 60,90 50,90 C40,90 20,80 20,50 Z M35,30 C25,25 20,35 30,40 M65,30 C75,25 80,35 70,40 M35,70 C25,75 20,65 30,60 M65,70 C75,75 80,65 70,60 M50,10 C30,0 10,30 20,50 M50,10 C70,0 90,30 80,50 M50,90 C30,100 10,70 20,50 M50,90 C70,100 90,70 80,50"></path>
+                </svg>
+            </div>
             <div class="container section-content">
                 <h2 class="section-title">Research Interests</h2>
                 <div class="card research-card">
@@ -572,12 +802,21 @@
         </section>
         
         <div class="section-divider">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
-                <path d="M0,100 C240,0 480,0 720,50 C960,100 1200,100 1440,0 L1440,0 L0,0 Z"></path>
-            </svg>
+            <div class="divider-wave-up"></div>
+            <div class="section-connector">
+                <svg width="100%" height="100%" preserveAspectRatio="none">
+                    <path class="motionPath" id="connector2" d="M1000,0 C750,100 250,0 0,100" />
+                    <circle class="signal-dot" r="4" id="signal2"></circle>
+                </svg>
+            </div>
         </div>
         
         <section id="experience" class="section">
+            <div class="section-brain" style="bottom: 20px; right: 20px;">
+                <svg viewBox="0 0 100 100" class="brain-svg">
+                    <path class="brain-path" d="M25,50 C25,30 40,15 50,15 C60,15 75,30 75,50 C75,70 60,85 50,85 C40,85 25,70 25,50 Z M25,50 C10,40 10,60 25,50 M75,50 C90,40 90,60 75,50 M50,15 C30,0 15,25 25,50 M50,15 C70,0 85,25 75,50 M50,85 C30,100 15,75 25,50 M50,85 C70,100 85,75 75,50 M40,40 C35,45 35,55 40,60 M60,40 C65,45 65,55 60,60 M40,40 C45,35 55,35 60,40 M40,60 C45,65 55,65 60,60"></path>
+                </svg>
+            </div>
             <div class="container section-content">
                 <h2 class="section-title">Experience</h2>
                 
@@ -633,9 +872,7 @@
         </section>
         
         <div class="section-divider">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
-                <path d="M0,0 C240,100 480,100 720,50 C960,0 1200,0 1440,100 L1440,100 L0,100 Z"></path>
-            </svg>
+            <div class="divider-wave-down"></div>
         </div>
         
         <section id="education" class="section divider-alt">
@@ -658,9 +895,7 @@
         </section>
         
         <div class="section-divider">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
-                <path d="M0,100 C240,0 480,0 720,50 C960,100 1200,100 1440,0 L1440,0 L0,0 Z"></path>
-            </svg>
+            <div class="divider-wave-up"></div>
         </div>
         
         <section id="publications" class="section">
@@ -681,9 +916,7 @@
         </section>
         
         <div class="section-divider">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
-                <path d="M0,0 C240,100 480,100 720,50 C960,0 1200,0 1440,100 L1440,100 L0,100 Z"></path>
-            </svg>
+            <div class="divider-wave-down"></div>
         </div>
         
         <section id="patents" class="section divider-alt">
@@ -704,9 +937,7 @@
         </section>
         
         <div class="section-divider">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
-                <path d="M0,100 C240,0 480,0 720,50 C960,100 1200,100 1440,0 L1440,0 L0,0 Z"></path>
-            </svg>
+            <div class="divider-wave-up"></div>
         </div>
         
         <section id="skills" class="section">
@@ -714,38 +945,75 @@
                 <h2 class="section-title">Skills</h2>
                 <div class="card skills-card">
                     <h3>Technical Skills</h3>
-                    <div class="pill-container">
-                        <span class="pill outlined">Javascript</span>
-                        <span class="pill outlined">Python</span>
-                        <span class="pill outlined">GraphQL</span>
-                        <span class="pill outlined">bash</span>
-                        <span class="pill outlined">SQL/DynamoDB/GraphQL</span>
+                    
+                    <!-- Add skill categories with additional styling -->
+                    <div class="skill-categories">
+                        <div class="skill-category">
+                            <h4>Languages & Frameworks</h4>
+                            <div class="pill-container" id="languages-container">
+                                <span class="pill outlined">Javascript</span>
+                                <span class="pill outlined">Python</span>
+                                <span class="pill outlined">GraphQL</span>
+                                <span class="pill outlined">bash</span>
+                                <span class="pill outlined">SQL/DynamoDB/GraphQL</span>
+                                <span class="pill outlined">VueJS</span>
+                                <span class="pill outlined">FastApi/Django/Flask</span>
+                            </div>
+                        </div>
                         
-                        <span class="pill filled">Machine Learning</span>
-                        <span class="pill filled">Artificial Intelligence</span>
-                        <span class="pill filled">GenAI</span>
-                        <span class="pill filled">RAG</span>
-                        <span class="pill filled">NLP</span>
-                        <span class="pill filled">Neural Networks</span>
-                        <span class="pill filled">Agent AI</span>
-                        <span class="pill filled">AWS Amplify</span>
-                        <span class="pill filled">VueJS</span>
-                        <span class="pill filled">Serverless</span>
-                        <span class="pill filled">Kubernetes</span>
-                        <span class="pill filled">Docker</span>
-                        <span class="pill filled">AWS DevOps</span>
-                        <span class="pill filled">TensorFlow/PyTorch</span>
-                        <span class="pill filled">MySQL/DynamoDB</span>
-                        <span class="pill filled">FastApi/Django/Flask</span>
+                        <div class="skill-category">
+                            <h4>AI & Machine Learning</h4>
+                            <div class="pill-container" id="ai-container">
+                                <span class="pill filled">Machine Learning</span>
+                                <span class="pill filled">Artificial Intelligence</span>
+                                <span class="pill filled">GenAI</span>
+                                <span class="pill filled">RAG</span>
+                                <span class="pill filled">NLP</span>
+                                <span class="pill filled">Neural Networks</span>
+                                <span class="pill filled">Agent AI</span>
+                                <span class="pill filled">TensorFlow/PyTorch</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h4>DevOps & Infrastructure</h4>
+                            <div class="pill-container" id="devops-container">
+                                <span class="pill filled">AWS Amplify</span>
+                                <span class="pill filled">Serverless</span>
+                                <span class="pill filled">Kubernetes</span>
+                                <span class="pill filled">Docker</span>
+                                <span class="pill filled">AWS DevOps</span>
+                                <span class="pill filled">MySQL/DynamoDB</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Advanced neural network skill visualization -->
+                    <div class="skill-visualization">
+                        <svg width="100%" height="220" id="skillNetworkSvg" preserveAspectRatio="none">
+                            <!-- Path for nodes to follow -->
+                            <defs>
+                                <path id="skillPath1" d="M20,50 C100,150 300,20 400,100 S600,150 800,70" />
+                                <path id="skillPath2" d="M20,150 C150,30 300,180 450,100 S600,50 800,150" />
+                            </defs>
+                            <!-- Base path display -->
+                            <use href="#skillPath1" class="motionPath" />
+                            <use href="#skillPath2" class="motionPath" />
+                            <!-- Nodes group -->
+                            <g id="skillNodes"></g>
+                            <!-- Morphing shape -->
+                            <g id="morphObjects" transform="translate(400, 100)">
+                                <polygon id="morphShape1" points="0,20 20,0 40,20 20,40" fill="var(--primary)" opacity="0.6" stroke="var(--primary-dark)" stroke-width="1" />
+                                <polygon id="morphShape2" style="opacity:0" points="10,0 40,10 30,40 0,30" fill="var(--neuron-color-2)" opacity="0.6" stroke="var(--accent)" stroke-width="1" />
+                            </g>
+                        </svg>
                     </div>
                 </div>
             </div>
         </section>
         
         <div class="section-divider">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
-                <path d="M0,0 C240,100 480,100 720,50 C960,0 1200,0 1440,100 L1440,100 L0,100 Z"></path>
-            </svg>
+            <div class="divider-wave-down"></div>
         </div>
         
         <section id="media" class="section divider-alt">
@@ -763,8 +1031,8 @@
                         </a>
                     </div>
                     <div class="media-item">
-                        <i class="fas fa-podcast"></i>
-                        <span>Podcast: "Unbox Your World: AI Safety — Teaching Machine Ethics Through Debate"</span>
+                        <i class="fas fa-newspaper"></i>
+                        <span>Article: "Unbox Your World: AI Safety — Teaching Machine Ethics Through Debate"</span>
                     </div>
                 </div>
             </div>
@@ -778,7 +1046,7 @@
     </footer>
     
     <script>
-        // Canvas Particle System (based on ParticleBackground.vue)
+        // Enhanced Canvas Particle System
         class ParticleSystem {
             constructor() {
                 this.canvas = document.getElementById('particleCanvas');
@@ -935,73 +1203,43 @@
             }
         }
         
-        // Enhanced scroll animations with IntersectionObserver
-        function setupScrollAnimations() {
-            // Animate sections on scroll
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const section = entry.target;
-                        section.style.opacity = 1;
-                        
-                        // Animate section title
-                        const title = section.querySelector('.section-title');
-                        if (title) {
-                            anime({
-                                targets: title,
-                                opacity: [0, 1],
-                                translateY: [30, 0],
-                                easing: 'easeOutQuad',
-                                duration: 800
-                            });
-                        }
-                        
-                        // Animate cards with staggered delay
-                        const cards = section.querySelectorAll('.card');
-                        anime({
-                            targets: cards,
-                            opacity: [0, 1],
-                            translateY: [30, 0],
-                            scale: [0.98, 1],
-                            easing: 'easeOutQuint',
-                            duration: 800,
-                            delay: anime.stagger(150)
-                        });
-                        
-                        observer.unobserve(section);
-                    }
-                });
-            }, { threshold: 0.1 });
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize particle system
+            new ParticleSystem();
             
-            document.querySelectorAll('.section').forEach(section => {
-                observer.observe(section);
+            // ====== Enhanced Anime.js SVG Neural Network ======
+            
+            // Initialize neural network SVG
+            initNeuralNetworkSVG();
+            
+            // Initialize section brain animations
+            initBrainAnimations();
+            
+            // Initialize section connector animations
+            initConnectorAnimations();
+            
+            // Initialize skill network visualization
+            initSkillNetwork();
+            
+            // Initialize morphing animations
+            initMorphAnimations();
+            
+            // ====== Regular Anime.js Animations ======
+            
+            // Signature animation
+            anime({
+                targets: '.sign-path',
+                strokeDashoffset: [1000, 0],
+                easing: 'easeInOutSine',
+                duration: 3000,
+                delay: 300,
+                begin: function() {
+                    document.getElementById('signature').style.opacity = 1;
+                }
             });
             
-            // Pills animation observer
-            const pillsObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const pills = entry.target.querySelectorAll('.pill');
-                        anime({
-                            targets: pills,
-                            opacity: [0, 1],
-                            translateX: [20, 0],
-                            easing: 'easeOutQuad',
-                            duration: 600,
-                            delay: anime.stagger(30)
-                        });
-                        pillsObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            document.querySelectorAll('.pill-container').forEach(container => {
-                pillsObserver.observe(container);
-            });
-        }
-        
-        // Header animation
-        function animateHeader() {
+            // Header text animations
             anime({
                 targets: '.name',
                 opacity: [0, 1],
@@ -1020,25 +1258,415 @@
                 delay: 300
             });
             
+            // Contact items animation
             anime({
                 targets: '.contact-item',
                 opacity: [0, 1],
                 translateY: [20, 0],
                 delay: anime.stagger(100, {start: 600}),
-                easing: 'easeOutQuad',
+                easing: 'spring(1, 80, 10, 0)',
                 duration: 800
+            });
+            
+            // Section animations with IntersectionObserver
+            setupScrollAnimations();
+            
+            // Brain path animations for each section
+            anime({
+                targets: '.brain-path',
+                strokeDashoffset: [1000, 0],
+                duration: 3000,
+                delay: anime.stagger(300),
+                easing: 'easeInOutSine'
+            });
+        });
+        
+        // Function to setup scroll animations
+        function setupScrollAnimations() {
+            const observerOptions = { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -10% 0px'
+            };
+            
+            // Section animations
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const section = entry.target;
+                        section.style.opacity = 1;
+                        
+                        // Animate section title
+                        const title = section.querySelector('.section-title');
+                        if (title) {
+                            anime({
+                                targets: title,
+                                opacity: [0, 1],
+                                translateY: [30, 0],
+                                easing: 'easeOutQuad',
+                                duration: 800
+                            });
+                            
+                            // Animate the underline
+                            anime({
+                                targets: title,
+                                background: [
+                                    'linear-gradient(90deg, var(--accent) 0%, var(--accent) 0%)',
+                                    'linear-gradient(90deg, var(--accent) 0%, var(--accent) 100%)'
+                                ],
+                                easing: 'easeInOutQuad',
+                                duration: 800,
+                                delay: 300
+                            });
+                        }
+                        
+                        // Animate cards
+                        const cards = section.querySelectorAll('.card');
+                        anime({
+                            targets: cards,
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            scale: [0.98, 1],
+                            easing: 'spring(1, 80, 10, 0)',
+                            duration: 800,
+                            delay: anime.stagger(150)
+                        });
+                        
+                        // Animate brain SVGs when section is visible
+                        const brainSvg = section.querySelector('.section-brain');
+                        if (brainSvg) {
+                            anime({
+                                targets: brainSvg,
+                                opacity: [0, 0.2],
+                                translateX: [brainSvg.style.right ? '50px' : '-50px', '0px'],
+                                duration: 1000,
+                                easing: 'easeOutQuad'
+                            });
+                        }
+                        
+                        sectionObserver.unobserve(section);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.section').forEach(section => {
+                sectionObserver.observe(section);
+            });
+            
+            // Pills animation
+            const pillsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const container = entry.target;
+                        const pills = container.querySelectorAll('.pill');
+                        
+                        // Different animation based on container ID
+                        if (container.id === 'languages-container') {
+                            anime({
+                                targets: pills,
+                                opacity: [0, 1],
+                                translateX: [-20, 0],
+                                easing: 'easeOutQuad',
+                                duration: 600,
+                                delay: anime.stagger(50)
+                            });
+                        } else if (container.id === 'ai-container') {
+                            anime({
+                                targets: pills,
+                                opacity: [0, 1],
+                                scale: [0.5, 1],
+                                easing: 'easeOutElastic(1, .6)',
+                                duration: 800,
+                                delay: anime.stagger(80)
+                            });
+                        } else if (container.id === 'devops-container') {
+                            anime({
+                                targets: pills,
+                                opacity: [0, 1],
+                                translateY: [10, 0],
+                                rotate: [-10, 0],
+                                easing: 'easeOutSine',
+                                duration: 600,
+                                delay: anime.stagger(40)
+                            });
+                        } else {
+                            anime({
+                                targets: pills,
+                                opacity: [0, 1],
+                                translateX: [20, 0],
+                                easing: 'easeOutQuad',
+                                duration: 600,
+                                delay: anime.stagger(30)
+                            });
+                        }
+                        
+                        pillsObserver.unobserve(container);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.pill-container').forEach(container => {
+                pillsObserver.observe(container);
             });
         }
         
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize particle system
-            new ParticleSystem();
+        // Function to initialize the SVG neural network
+        function initNeuralNetworkSVG() {
+            const svg = document.getElementById('neuralNetworkSvg');
+            const neuronsGroup = document.getElementById('neurons');
+            const synapsesGroup = document.getElementById('synapses');
+            const signalsGroup = document.getElementById('signals');
             
-            // Setup animations
-            animateHeader();
-            setupScrollAnimations();
-        });
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const layerCount = 4;
+            const neuronCount = 6;
+            
+            let neurons = [];
+            let synapses = [];
+            
+            // Create neurons
+            for (let l = 0; l < layerCount; l++) {
+                const layerNeurons = [];
+                const xPos = width * (l + 1) / (layerCount + 1);
+                
+                for (let i = 0; i < neuronCount; i++) {
+                    const yPos = height * (i + 1) / (neuronCount + 1);
+                    
+                    // Create neuron element
+                    const neuron = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    neuron.setAttribute('cx', xPos);
+                    neuron.setAttribute('cy', yPos);
+                    neuron.setAttribute('r', 3 + Math.random() * 3);
+                    neuron.setAttribute('class', 'neuron');
+                    neuron.setAttribute('opacity', 0.5);
+                    
+                    neuronsGroup.appendChild(neuron);
+                    
+                    layerNeurons.push({
+                        element: neuron,
+                        x: xPos,
+                        y: yPos,
+                        active: false
+                    });
+                }
+                
+                neurons.push(layerNeurons);
+            }
+            
+            // Create synapses between layers
+            for (let l = 0; l < layerCount - 1; l++) {
+                for (let i = 0; i < neurons[l].length; i++) {
+                    const fromNeuron = neurons[l][i];
+                    
+                    for (let j = 0; j < neurons[l + 1].length; j++) {
+                        // Connect with probability
+                        if (Math.random() < 0.4) {
+                            const toNeuron = neurons[l + 1][j];
+                            
+                            // Create synapse element
+                            const synapse = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            synapse.setAttribute('x1', fromNeuron.x);
+                            synapse.setAttribute('y1', fromNeuron.y);
+                            synapse.setAttribute('x2', toNeuron.x);
+                            synapse.setAttribute('y2', toNeuron.y);
+                            synapse.setAttribute('class', 'synapse');
+                            synapse.setAttribute('opacity', 0.2);
+                            
+                            synapsesGroup.appendChild(synapse);
+                            
+                            synapses.push({
+                                element: synapse,
+                                from: fromNeuron,
+                                to: toNeuron
+                            });
+                        }
+                    }
+                }
+            }
+            
+            // Pulse animation for neurons
+            function pulseAnimation() {
+                // Activate random input neurons
+                const inputLayer = neurons[0];
+                const activeCount = 1 + Math.floor(Math.random() * (inputLayer.length / 2));
+                
+                // Shuffle and activate
+                const shuffled = [...inputLayer].sort(() => 0.5 - Math.random());
+                const selectedNeurons = shuffled.slice(0, activeCount);
+                
+                // Activate selected neurons
+                selectedNeurons.forEach(neuron => {
+                    activateNeuron(neuron);
+                });
+                
+                // Schedule next pulse
+                setTimeout(pulseAnimation, 3000);
+            }
+            
+            // Function to activate a neuron and propagate the signal
+            function activateNeuron(neuron) {
+                if (neuron.active) return;
+                
+                neuron.active = true;
+                
+                // Pulse animation for the neuron
+                anime({
+                    targets: neuron.element,
+                    r: [neuron.element.getAttribute('r'), neuron.element.getAttribute('r') * 1.5, neuron.element.getAttribute('r')],
+                    opacity: [0.5, 1, 0.5],
+                    easing: 'easeInOutSine',
+                    duration: 1000,
+                    complete: function() {
+                        neuron.active = false;
+                    }
+                });
+                
+                // Find all synapses from this neuron
+                const outgoingSynapses = synapses.filter(s => s.from === neuron);
+                
+                // Activate synapses with signals
+                outgoingSynapses.forEach(synapse => {
+                    // Highlight synapse
+                    anime({
+                        targets: synapse.element,
+                        opacity: [0.2, 0.8, 0.2],
+                        easing: 'easeInOutSine',
+                        duration: 1000
+                    });
+                    
+                    // Create and animate signal
+                    const signal = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    signal.setAttribute('r', 3);
+                    signal.setAttribute('class', 'signal-dot');
+                    signalsGroup.appendChild(signal);
+                    
+                    // Animate along the synapse
+                    anime({
+                        targets: signal,
+                        cx: [synapse.from.x, synapse.to.x],
+                        cy: [synapse.from.y, synapse.to.y],
+                        opacity: [1, 0],
+                        easing: 'easeInOutQuad',
+                        duration: 800,
+                        complete: function() {
+                            signalsGroup.removeChild(signal);
+                            // Activate the target neuron
+                            setTimeout(() => activateNeuron(synapse.to), 100);
+                        }
+                    });
+                });
+            }
+            
+            // Start the pulse animation
+            setTimeout(pulseAnimation, 1000);
+        }
+        
+        // Initialize brain animations
+        function initBrainAnimations() {
+            // Animate brain paths with SVG drawable animation
+            const brainPaths = document.querySelectorAll('.brain-path');
+            brainPaths.forEach(path => {
+                anime({
+                    targets: path,
+                    strokeDashoffset: [anime.setDashoffset, 0],
+                    easing: 'easeInOutSine',
+                    duration: 2000,
+                    delay: function() { return anime.random(0, 1000); },
+                    direction: 'alternate',
+                    loop: true
+                });
+            });
+        }
+        
+        // Initialize section connector animations
+        function initConnectorAnimations() {
+            // Create motion paths for connectors
+            const connector1Path = anime.path('#connector1');
+            const connector2Path = anime.path('#connector2');
+            
+            // Animate signal1 along connector1
+            anime({
+                targets: '#signal1',
+                translateX: connector1Path('x'),
+                translateY: connector1Path('y'),
+                easing: 'linear',
+                duration: 10000,
+                loop: true
+            });
+            
+            // Animate signal2 along connector2
+            anime({
+                targets: '#signal2',
+                translateX: connector2Path('x'),
+                translateY: connector2Path('y'),
+                easing: 'linear',
+                duration: 15000,
+                loop: true
+            });
+        }
+        
+        // Initialize skill network visualization
+        function initSkillNetwork() {
+            const svg = document.getElementById('skillNetworkSvg');
+            const nodesGroup = document.getElementById('skillNodes');
+            
+            // Create motion paths
+            const path1 = anime.path('#skillPath1');
+            const path2 = anime.path('#skillPath2');
+            
+            // Create skill nodes that follow the paths
+            for (let i = 0; i < 10; i++) {
+                const node = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                node.setAttribute('r', 4 + Math.random() * 4);
+                node.setAttribute('fill', i % 2 === 0 ? 'var(--primary)' : 'var(--neuron-color-2)');
+                node.setAttribute('opacity', 0.7);
+                nodesGroup.appendChild(node);
+                
+                // Animate along path with staggered delay
+                anime({
+                    targets: node,
+                    translateX: i % 2 === 0 ? path1('x') : path2('x'),
+                    translateY: i % 2 === 0 ? path1('y') : path2('y'),
+                    easing: 'linear',
+                    duration: 15000 + i * 500,
+                    loop: true,
+                    delay: i * 500
+                });
+            }
+        }
+        
+        // Initialize morphing animations
+        function initMorphAnimations() {
+            // Setup morphing between two shapes
+            const morphTargets = {
+                shape1: { shape: '#morphShape1', points: '0,20 20,0 40,20 20,40' },
+                shape2: { shape: '#morphShape2', points: '10,0 40,10 30,40 0,30' }
+            };
+            
+            // Create morphing animation
+            anime({
+                targets: '#morphShape1',
+                points: [
+                    { value: morphTargets.shape1.points },
+                    { value: morphTargets.shape2.points },
+                    { value: morphTargets.shape1.points }
+                ],
+                easing: 'easeInOutQuad',
+                duration: 3000,
+                loop: true,
+                direction: 'alternate'
+            });
+            
+            // Also animate rotation and scaling
+            anime({
+                targets: '#morphObjects',
+                rotate: 360,
+                scale: [1, 1.2, 1],
+                easing: 'easeInOutSine',
+                duration: 8000,
+                loop: true
+            });
+        }
     </script>
 </body>
 </html> 
